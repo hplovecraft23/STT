@@ -7,7 +7,7 @@ using Moq;
 namespace STT.WebApi.Tests
 {
     [TestFixture]
-    public class Tests
+    public class Data
     {
         private FootballDBContext dBContext;
         private FootballUOW FootballUOW;

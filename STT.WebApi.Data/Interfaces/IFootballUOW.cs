@@ -5,7 +5,7 @@ using STT.WebApi.Data.Logic;
 
 namespace STT.WebApi.Data.Interfaces
 {
-    interface IFootballUOW
+    public interface IFootballUOW
     {
         public CompetitionRepository Competitions { get; }
         public TeamRepository Teams { get; }
@@ -13,6 +13,5 @@ namespace STT.WebApi.Data.Interfaces
         public Competition_TeamsRepository Competition_Teams { get;}
         public TeamPlayersRepository TeamPlayers { get; }
         public void SaveChanges();
-
     }
 }
