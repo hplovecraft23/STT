@@ -18,7 +18,6 @@
     <ProjectReference Include="..\STT.WebApi.APIClient\STT.WebApi.APIClient.csproj" />
     <ProjectReference Include="..\STT.WebApi.Contract\STT.WebApi.Contract.csproj" />
     <ProjectReference Include="..\STT.WebApi.Data\STT.WebApi.Data.csproj" />
-    <ProjectReference Include="..\STT.WebApi.WebApi\STT.WebApi.WebApi.csproj" />
   </ItemGroup>
 
 </Project>

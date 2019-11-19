@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using STT.WebApi.Data.Models;
+using Pomelo.EntityFrameworkCore.MySql;
 
 namespace STT.WebApi.Data.Logic
 {
@@ -10,11 +11,14 @@ namespace STT.WebApi.Data.Logic
     {
         public FootballDBContext() { }
         public FootballDBContext(DbContextOptions<FootballDBContext> options) : base(options)
-        { }
+        {
+        
+        }
         public DbSet<Competition> Competitions { get ; set ; }
         public DbSet<Competition_Teams> Competition_Teams { get ; set ; }
         public DbSet<Player> Players { get ; set ; }
         public DbSet<Team> Teams { get ; set ; }
         public DbSet<TeamPlayers> TeamPlayers { get ; set ; }
+        
     }
 }

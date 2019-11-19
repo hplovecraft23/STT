@@ -8,5 +8,6 @@ namespace STT.WebApi.APIClient.Interfaces
         Task<CompetitionListDTO> CompetitionListDTO();
         Task<TeamCompetitionsDTO> TeamCompetitionsDTO(int CompetitionID);
         Task<TeamDTO> TeamDTO(int TeamID);
+        string GetCurrentURL();
     }
 }

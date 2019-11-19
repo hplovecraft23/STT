@@ -67,7 +67,6 @@ namespace STT.WebApi.Data.Logic
         public void Dispose()
         {
             ((IDisposable)_dbcontext).Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using AutoMapper;
 using Newtonsoft.Json;
 using STT.WebApi.APIClient.Interfaces;
 using STT.WebApi.APIClient.Models;
@@ -13,6 +15,8 @@ namespace STT.WebApi.APIClient.Logic
         private HttpClient _httpClient;
         private string ApiToken;
         private string ApiUrl;
+        private IMapper Mapper;
+        private AutomapperConfig AutomapperConfig;
 
         public FootBallApiWebClient(IWebConfiguration configuration, HttpMessageHandler handler = null)
         {
@@ -22,24 +26,41 @@ namespace STT.WebApi.APIClient.Logic
             }
             ApiToken = configuration.Token;
             ApiUrl = configuration.URL;
+            AutomapperConfig = new AutomapperConfig();
+        }
+
+        public string GetCurrentURL()
+        {
+            if (!string.IsNullOrEmpty(ApiUrl))
+            {
+                return ApiUrl;
+            }
+            else return string.Empty;
         }
 
         public async Task<CompetitionListDTO> CompetitionListDTO()
         {
             using(_httpClient = GetHttpClient())
             {
-                HttpResponseMessage result = await _httpClient.GetAsync("/competitions");
+                HttpResponseMessage result = await _httpClient.GetAsync("/v2/competitions");
                 if (result.IsSuccessStatusCode)
                 {
-                    CompetitionList list = JsonConvert.DeserializeObject<CompetitionList>(result.Content.ToString());
+                    Mapper = AutomapperConfig.CompetitionListMapConfig.CreateMapper();
+                    string content = await result.Content.ReadAsStringAsync();
+                    CompetitionListJSON list = JsonConvert.DeserializeObject<CompetitionListJSON>(content);
+                    CompetitionList mappedList = Mapper.Map<CompetitionListJSON, CompetitionList>(list);
+                    var headers = result.Headers;
+                    headers.TryGetValues("X-API-Version", out var apiversion);
+                    headers.TryGetValues("X-Requests-Available-Minute", out var requestsav);
+                    headers.TryGetValues("X-Authenticated-Client", out var username);
                     CompetitionListDTO competition = new CompetitionListDTO
                     {
-                        Competitions = list,
+                        Competitions = mappedList,
                         Headers = new Headers
                         {
-                            ApiVersion = result.Headers.GetValues("X-API-Version").ToString(),
-                            RequestsAvailable = result.Headers.GetValues("X-Requests-Available-Minute").ToString(),
-                            UserName = result.Headers.GetValues("X-Authenticated-Client").ToString()
+                            ApiVersion = apiversion.FirstOrDefault().ToString(),
+                            RequestsAvailable = requestsav.FirstOrDefault().ToString(),
+                            UserName = username.FirstOrDefault().ToString()
                         },
                         Success = true
                     };
@@ -57,18 +78,25 @@ namespace STT.WebApi.APIClient.Logic
         {
             using (_httpClient = GetHttpClient())
             {
-                HttpResponseMessage result = await _httpClient.GetAsync($"/competitions/{CompetitionID}/teams");
+                HttpResponseMessage result = await _httpClient.GetAsync($"/v2/competitions/{CompetitionID}/teams");
                 if (result.IsSuccessStatusCode)
                 {
-                    CompetitionTeamList list = JsonConvert.DeserializeObject<CompetitionTeamList>(result.Content.ToString());
+                    Mapper = AutomapperConfig.TeamsCompetitionListMapConfig.CreateMapper();
+                    string content = await result.Content.ReadAsStringAsync();
+                    TeamCompetitionsJSON list = JsonConvert.DeserializeObject<TeamCompetitionsJSON>(content);
+                    CompetitionTeamList mappedlist = Mapper.Map<TeamCompetitionsJSON, CompetitionTeamList>(list);
+                    var headers = result.Headers;
+                    headers.TryGetValues("X-API-Version", out var apiversion);
+                    headers.TryGetValues("X-Requests-Available-Minute", out var requestsav);
+                    headers.TryGetValues("X-Authenticated-Client", out var username);
                     TeamCompetitionsDTO teamCompetitions = new TeamCompetitionsDTO
                     {
-                        CompetitionTeamList = list,
+                        CompetitionTeamList = mappedlist,
                         Headers = new Headers
                         {
-                            ApiVersion = result.Headers.GetValues("X-API-Version").ToString(),
-                            RequestsAvailable = result.Headers.GetValues("X-Requests-Available-Minute").ToString(),
-                            UserName = result.Headers.GetValues("X-Authenticated-Client").ToString()
+                            ApiVersion = apiversion.FirstOrDefault().ToString(),
+                            RequestsAvailable = requestsav.FirstOrDefault().ToString(),
+                            UserName = username.FirstOrDefault().ToString()
                         },
                         Success = true
                     };
@@ -85,7 +113,7 @@ namespace STT.WebApi.APIClient.Logic
         {
             using (_httpClient = GetHttpClient())
             {
-                HttpResponseMessage result = await _httpClient.GetAsync($"/teams/{TeamID}");
+                HttpResponseMessage result = await _httpClient.GetAsync($"/v2/teams/{TeamID}");
                 if (result.IsSuccessStatusCode)
                 {
                     Team list = JsonConvert.DeserializeObject<Team>(result.Content.ToString());

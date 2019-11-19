@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using STT.WebApi.APIClient.Interfaces;
-using STT.WebApi.Data.Interfaces;
+using STT.WebApi.APIClient.Models;
+using STT.WebApi.Contract.Models;
 
 namespace STT.WebApi.Contract.Interfaces
 {
@@ -10,7 +10,10 @@ namespace STT.WebApi.Contract.Interfaces
         //Suggested constructor
         //public IContractUOW(IWebConfiguration webConfiguration, IAPI_FootbalRepository API_FootbalRepository, IFootballUOW footballUOW);
 
-        public async Task<> ImportLeague();
-        public async Task<> TotalPlayesOnLeague();
+        public Task<ImportLeagueResponse> ImportLeague(string code);
+        public Task<TotalPlayesOnLeagueResponse> TotalPlayesOnLeague(string code);
+        public Task<CompetitionListDTO> GetLeagues();
+        public void ChangeAPIKey(string newkey);
+        public CompetitionListDTO CompetitionListCache { get; set; }
     }
 }
