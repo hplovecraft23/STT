@@ -65,14 +65,9 @@ namespace STT.WebApi.Contract.Logic
                             int id = item.id;
                             if (_FootballUOW.Teams.GetById(id) != null)
                             {
-                                if (_FootballUOW.Competition_Teams.List().Where(x => x.Competition_id == Comp.id && x.Team_id == id).Any())
-                                {
-                                    continue;
-                                }
-                                else
+                                if (!_FootballUOW.Competition_Teams.List().Where(x => x.Competition_id == Comp.id && x.Team_id == id).Any())
                                 {
                                     _FootballUOW.Competition_Teams.Add(new Data.Models.Competition_Teams { Competition_id = competition.id, Team_id = item.id });
-                                    continue;
                                 }
                             }
                             else
@@ -81,10 +76,30 @@ namespace STT.WebApi.Contract.Logic
                                 Data.Models.Team Team = Mapper.Map<Data.Models.Team>(item);
                                 _FootballUOW.Teams.Add(Team);
                                 _FootballUOW.Competition_Teams.Add(new Data.Models.Competition_Teams { Competition_id = competition.id, Team_id = Team.id });
-                                continue;
+                                
                             }
+                            TeamDTO teamDTO = await _API_FootbalRepository.TeamDTO(item.id);
+                            foreach (Player player in teamDTO.Team.squad)
+                            {
+                                if (_FootballUOW.Players.GetById(player.id) != null)
+                                {
+                                    if (!_FootballUOW.TeamPlayers.List().Where(x => x.Player_id == player.id && x.Team_id == item.id).Any())
+                                    {
+                                        _FootballUOW.TeamPlayers.Add(new Data.Models.TeamPlayers { Player_id = player.id, Team_id = item.id });
+                                    }
+                                }
+                                else
+                                {
+                                    Mapper = AutomapperConfigurations.PlayerAPIToLocal.CreateMapper();
+                                    Data.Models.Player DBPlayer = Mapper.Map<Data.Models.Player>(player);
+                                    _FootballUOW.Players.Add(DBPlayer);
+                                    _FootballUOW.TeamPlayers.Add(new Data.Models.TeamPlayers() { Player_id = DBPlayer.id, Team_id = item.id });
+                                }
+                            }      
                         }
-                        return null;
+                        result.Message = "Successfully imported";
+                        result.Status = Import_LeagueResults.SuccessfullyImported;
+                        return result;
                     }
                 }
                 else
@@ -111,7 +126,27 @@ namespace STT.WebApi.Contract.Logic
             if (CompetitionListCache.Competitions.competitions.Where(x => x.code == code) != null)
             {
                 Competition competition = CompetitionListCache.Competitions.competitions.Where(x => x.code == code).FirstOrDefault();
-                return null;
+                var localcomp = _FootballUOW.Competitions.GetById(competition.id);
+                if (localcomp != null)
+                {
+                    int count = 0;
+                    var teams = _FootballUOW.Competition_Teams.List().Where(x => x.Competition_id == competition.id);
+                    foreach (Data.Models.Competition_Teams item in teams)
+                    {
+                        count += _FootballUOW.TeamPlayers.List().Where(x => x.Team_id == item.Team_id).Count();
+                    }
+                    return new TotalPlayesOnLeagueResponse()
+                    {
+                        LeagueName = competition.name,
+                        Players = count,
+                        Success = true
+                    };
+                }
+                return new TotalPlayesOnLeagueResponse()
+                {
+                    Success = false,
+                    Message = "League not imported"
+                };
             }
             else
             {

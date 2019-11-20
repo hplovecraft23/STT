@@ -26,15 +26,26 @@ namespace SST.WebApi.API.Controllers
         [ProducesResponseType(typeof(void), 504)]
         public async Task<IActionResult> ImportLeague(string leagueCode)
         {
-            var result = await _contractUOW.ImportLeague(leagueCode);
-            if (result.Status == STT.WebApi.Contract.Models.Import_LeagueResults.SuccessfullyImported)
+            var result = await _contractUOW.ImportLeague(leagueCode.ToUpper());
+            string message;
+            switch (result.Status)
             {
-                return Ok(result);
-            }
-            else
-            {
-                string message = "Server Error";
-                return StatusCode(504, message);
+
+                case STT.WebApi.Contract.Models.Import_LeagueResults.SuccessfullyImported:
+                    message = "Successfully imported";
+                    return StatusCode(201, message);
+                case STT.WebApi.Contract.Models.Import_LeagueResults.AlreadyImported:
+                    message = "League already imported";
+                    return StatusCode(409, message);
+                case STT.WebApi.Contract.Models.Import_LeagueResults.NotFound:
+                    message = "Not found";
+                    return StatusCode(404, message);
+                case STT.WebApi.Contract.Models.Import_LeagueResults.ServerError:
+                    message = "Server Error";
+                    return StatusCode(504, message);
+                default:
+                    message = "Server Error";
+                    return StatusCode(504, message);
             }
         }
 
@@ -44,7 +55,16 @@ namespace SST.WebApi.API.Controllers
         [ProducesResponseType(typeof(void), 404)]
         public async Task<IActionResult> TotalPlayers(string leagueCode)
         {
-            return Ok();
+            var result = await _contractUOW.TotalPlayesOnLeague(leagueCode.ToUpper());
+            if (result.Success)
+            {
+                string total = result.Players.ToString();
+                return Ok(total);
+            }
+            else
+            {
+                return StatusCode(504, result.Message);
+            }
         }
     }
 }

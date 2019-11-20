@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  mysql:
+    image: mysql:5.7
+    restart: always
+    enviroment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+      MYSQL_DATABASE: STT
+      MYSQL_USER: MySqlUSR
+      MYSQL_PASSWORD: Password65!!
+    volumes:
+      ./mysqlscript:/docker-entrypoint-initdb.d
+      dbdata:/var/lib/mysql
+  sst.webapi.api:
+    depends_on:
+      -mysql
+    image: ${DOCKER_REGISTRY-}sstwebapiapi
+    build:
+      context: .
+      dockerfile: SST.WebApi.API\Dockerfile
+volumes:
+  dbdata:
