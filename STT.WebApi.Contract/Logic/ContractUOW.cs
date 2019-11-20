@@ -109,7 +109,7 @@ namespace STT.WebApi.Contract.Logic
                     return result;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 result.Message = "Server Error";
                 result.Status = Import_LeagueResults.ServerError;

@@ -1,23 +1,28 @@
 version: '3.4'
 
 services:
-  mysql:
+  database:
     image: mysql:5.7
     restart: always
-    enviroment:
+    environment:
       MYSQL_RANDOM_ROOT_PASSWORD: 1
       MYSQL_DATABASE: STT
       MYSQL_USER: MySqlUSR
       MYSQL_PASSWORD: Password65!!
     volumes:
-      ./mysqlscript:/docker-entrypoint-initdb.d
-      dbdata:/var/lib/mysql
+      - ./Scripts:/docker-entrypoint-initdb.d
+      - dbdata:/var/lib/mysql
+    ports:
+      - "3306:3360"
   sst.webapi.api:
     depends_on:
-      -mysql
+      - "database"
     image: ${DOCKER_REGISTRY-}sstwebapiapi
     build:
       context: .
-      dockerfile: SST.WebApi.API\Dockerfile
+      dockerfile: ./SST.WebApi.API/Dockerfile
+    ports:
+      - "5800:443"
 volumes:
   dbdata:
+

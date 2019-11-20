@@ -13,7 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STT.WebApi.Data", "STT.WebA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{E42C4697-2B22-4AA4-A86E-863F61EB5AFD}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\Scripts\Database.mwb = ..\..\..\Scripts\Database.mwb
 		..\..\..\Scripts\Database.sql = ..\..\..\Scripts\Database.sql
 	EndProjectSection
 EndProject
@@ -21,7 +20,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STT.WebApi.Tests", "STT.Web
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SST.WebApi.API", "SST.WebApi.API\SST.WebApi.API.csproj", "{F66BAF7F-09CD-4AA3-87B8-2E71981B00BB}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0D71C1E4-6FC1-4216-A1BB-277EFDE29BDC}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{69F509F1-C634-4F3F-A8DE-8A76C6B795BE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBModel", "DBModel", "{7957BFBB-80B4-45D2-A1C1-7289FE44679D}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Scripts\Database.mwb = ..\..\..\Scripts\Database.mwb
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +53,10 @@ Global
 		{F66BAF7F-09CD-4AA3-87B8-2E71981B00BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F66BAF7F-09CD-4AA3-87B8-2E71981B00BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F66BAF7F-09CD-4AA3-87B8-2E71981B00BB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D71C1E4-6FC1-4216-A1BB-277EFDE29BDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D71C1E4-6FC1-4216-A1BB-277EFDE29BDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D71C1E4-6FC1-4216-A1BB-277EFDE29BDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D71C1E4-6FC1-4216-A1BB-277EFDE29BDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69F509F1-C634-4F3F-A8DE-8A76C6B795BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69F509F1-C634-4F3F-A8DE-8A76C6B795BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69F509F1-C634-4F3F-A8DE-8A76C6B795BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69F509F1-C634-4F3F-A8DE-8A76C6B795BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
