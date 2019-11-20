@@ -37,7 +37,7 @@ namespace STT.WebApi.Contract.Logic
 
 
         public async Task<ImportLeagueResponse> ImportLeague(string code)
-        {
+        {  
             var result = new ImportLeagueResponse();
             try
             {
@@ -52,6 +52,7 @@ namespace STT.WebApi.Contract.Logic
                     {
                         result.Message = "League already imported";
                         result.Status = Import_LeagueResults.AlreadyImported;
+                        return result;
                     }
                     else
                     {
@@ -83,18 +84,21 @@ namespace STT.WebApi.Contract.Logic
                                 continue;
                             }
                         }
+                        return null;
                     }
                 }
                 else
                 {
                     result.Message = "Not found";
                     result.Status = Import_LeagueResults.NotFound;
+                    return result;
                 }
             }
             catch (Exception)
             {
                 result.Message = "Server Error";
                 result.Status = Import_LeagueResults.ServerError;
+                return result;
             }  
         }
 
@@ -103,6 +107,19 @@ namespace STT.WebApi.Contract.Logic
             if (CompetitionListCache == null)
             {
                 CompetitionListCache = await _API_FootbalRepository.CompetitionListDTO();
+            }
+            if (CompetitionListCache.Competitions.competitions.Where(x => x.code == code) != null)
+            {
+                Competition competition = CompetitionListCache.Competitions.competitions.Where(x => x.code == code).FirstOrDefault();
+                return null;
+            }
+            else
+            {
+                return new TotalPlayesOnLeagueResponse()
+                {
+                    Success = false,
+                    Message = "League not found"
+                };
             }
         }
         public Task<CompetitionListDTO> GetLeagues()

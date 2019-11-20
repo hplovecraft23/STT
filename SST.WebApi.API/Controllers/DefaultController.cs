@@ -26,8 +26,8 @@ namespace SST.WebApi.API.Controllers
         [ProducesResponseType(typeof(void), 504)]
         public async Task<IActionResult> ImportLeague(string leagueCode)
         {
-            var result = await _contractUOW.GetLeagues();
-            if (result.Success)
+            var result = await _contractUOW.ImportLeague(leagueCode);
+            if (result.Status == STT.WebApi.Contract.Models.Import_LeagueResults.SuccessfullyImported)
             {
                 return Ok(result);
             }

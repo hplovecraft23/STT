@@ -116,15 +116,22 @@ namespace STT.WebApi.APIClient.Logic
                 HttpResponseMessage result = await _httpClient.GetAsync($"/v2/teams/{TeamID}");
                 if (result.IsSuccessStatusCode)
                 {
-                    Team list = JsonConvert.DeserializeObject<Team>(result.Content.ToString());
+                    Mapper = AutomapperConfig.GetTeamConfig.CreateMapper();
+                    string content = await result.Content.ReadAsStringAsync();
+                    GETTeamJSON list = JsonConvert.DeserializeObject<GETTeamJSON>(result.Content.ToString());
+                    Team convertedTeam = Mapper.Map<Team>(list);
+                    var headers = result.Headers;
+                    headers.TryGetValues("X-API-Version", out var apiversion);
+                    headers.TryGetValues("X-Requests-Available-Minute", out var requestsav);
+                    headers.TryGetValues("X-Authenticated-Client", out var username);
                     TeamDTO team = new TeamDTO
                     {
-                        Team = list,
+                        Team = convertedTeam,
                         Headers = new Headers
                         {
-                            ApiVersion = result.Headers.GetValues("X-API-Version").ToString(),
-                            RequestsAvailable = result.Headers.GetValues("X-Requests-Available-Minute").ToString(),
-                            UserName = result.Headers.GetValues("X-Authenticated-Client").ToString()
+                            ApiVersion = apiversion.FirstOrDefault().ToString(),
+                            RequestsAvailable = requestsav.FirstOrDefault().ToString(),
+                            UserName = username.FirstOrDefault().ToString()
                         },
                         Success = true
                     };

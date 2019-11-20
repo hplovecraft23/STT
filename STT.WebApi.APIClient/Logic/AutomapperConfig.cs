@@ -28,13 +28,14 @@ namespace STT.WebApi.APIClient.Logic
             GetTeamConfig = new MapperConfiguration(c =>
             {
                 c.CreateMap<GETTeamJSON, Team>()
-                .ForMember(x => x.areaName, x => x.MapFrom(x => x.area.name))
-                .ForMember
+                .ForMember(x => x.areaName, x => x.MapFrom(x => x.area.name));
+                c.CreateMap<Squad, Player>();
 
-            })
+            });
 
             CompetitionListMapConfig.AssertConfigurationIsValid();
             TeamsCompetitionListMapConfig.AssertConfigurationIsValid();
+            GetTeamConfig.AssertConfigurationIsValid();
         }
     }
 }
