@@ -20,17 +20,19 @@ namespace STT.WebApi.Data.Logic
         public void Add(Team entity)
         {
              _dbcontext.AddAsync(entity);
+            
         }
 
         public void Delete(Team entity)
         {
             _dbcontext.Remove(entity);
+            
         }
 
         public void Edit(Team entity)
         {
             _dbcontext.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            _dbcontext.SaveChangesAsync();
+           
         }
 
         public Team GetById(int id)

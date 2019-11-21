@@ -19,7 +19,7 @@ namespace STT.WebApi.Contract.Models
             });
             TeamAPItoLocal = new MapperConfiguration(c =>
             {
-                c.CreateMap<Team, Data.Models.Team>();
+                c.CreateMap<TeamsCompetitionTeamDTO, Data.Models.Team>();
             });
             PlayerAPIToLocal = new MapperConfiguration(c =>
             {

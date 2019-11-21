@@ -13,7 +13,9 @@ namespace STT.WebApi.Contract.Interfaces
         public Task<ImportLeagueResponse> ImportLeague(string code);
         public Task<TotalPlayesOnLeagueResponse> TotalPlayesOnLeague(string code);
         public Task<CompetitionListDTO> GetLeagues();
-        public void ChangeAPIKey(string newkey);
+        
         public CompetitionListDTO CompetitionListCache { get; set; }
+        public void ChangeAPIKey(string newkey);
+        public void CallRoolback();
     }
 }

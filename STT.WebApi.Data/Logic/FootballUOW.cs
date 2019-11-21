@@ -59,6 +59,10 @@ namespace STT.WebApi.Data.Logic
             } 
         }
 
+        public FootballDBContext dBContext { get {
+                return _dbcontext;
+            } }
+
         public void SaveChanges()
         {
             _dbcontext.SaveChanges();

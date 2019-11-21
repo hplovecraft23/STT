@@ -20,17 +20,19 @@ namespace STT.WebApi.Data.Logic
         public void Add(Competition entity)
         {
              _dbcontext.AddAsync(entity);
+            
         }
 
         public void Delete(Competition entity)
         {
             _dbcontext.Remove(entity);
+            
         }
 
         public void Edit(Competition entity)
         {
             _dbcontext.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            _dbcontext.SaveChangesAsync();
+            
         }
 
         public Competition GetById(int id)

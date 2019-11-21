@@ -21,17 +21,19 @@ namespace STT.WebApi.Data.Logic
         public void Add(Competition_Teams entity)
         {
              _dbcontext.AddAsync(entity);
+            
         }
 
         public void Delete(Competition_Teams entity)
         {
             _dbcontext.Remove(entity);
+          
         }
 
         public void Edit(Competition_Teams entity)
         {
             _dbcontext.Entry(entity).State = EntityState.Modified;
-            _dbcontext.SaveChangesAsync();
+           
         }
 
         public Competition_Teams GetById(int id)

@@ -26,27 +26,37 @@ namespace SST.WebApi.API.Controllers
         [ProducesResponseType(typeof(void), 504)]
         public async Task<IActionResult> ImportLeague(string leagueCode)
         {
-            var result = await _contractUOW.ImportLeague(leagueCode.ToUpper());
             string message;
-            switch (result.Status)
+            try
             {
+                var result = await _contractUOW.ImportLeague(leagueCode.ToUpper());
+                
+                switch (result.Status)
+                {
 
-                case STT.WebApi.Contract.Models.Import_LeagueResults.SuccessfullyImported:
-                    message = "Successfully imported";
-                    return StatusCode(201, message);
-                case STT.WebApi.Contract.Models.Import_LeagueResults.AlreadyImported:
-                    message = "League already imported";
-                    return StatusCode(409, message);
-                case STT.WebApi.Contract.Models.Import_LeagueResults.NotFound:
-                    message = "Not found";
-                    return StatusCode(404, message);
-                case STT.WebApi.Contract.Models.Import_LeagueResults.ServerError:
-                    message = "Server Error";
-                    return StatusCode(504, message);
-                default:
-                    message = "Server Error";
-                    return StatusCode(504, message);
+                    case STT.WebApi.Contract.Models.Import_LeagueResults.SuccessfullyImported:
+                        message = "Successfully imported";
+                        return StatusCode(201, message);
+                    case STT.WebApi.Contract.Models.Import_LeagueResults.AlreadyImported:
+                        message = "League already imported";
+                        return StatusCode(409, message);
+                    case STT.WebApi.Contract.Models.Import_LeagueResults.NotFound:
+                        message = "Not found";
+                        return StatusCode(404, message);
+                    case STT.WebApi.Contract.Models.Import_LeagueResults.ServerError:
+                        message = "Server Error";
+                        return StatusCode(504, message);
+                    default:
+                        message = "Server Error";
+                        return StatusCode(504, message);
+                }
             }
+            catch (Exception ex)
+            {
+                _contractUOW.CallRoolback();
+                return StatusCode(500);
+            }
+            
         }
 
         [HttpGet]
@@ -55,16 +65,25 @@ namespace SST.WebApi.API.Controllers
         [ProducesResponseType(typeof(void), 404)]
         public async Task<IActionResult> TotalPlayers(string leagueCode)
         {
-            var result = await _contractUOW.TotalPlayesOnLeague(leagueCode.ToUpper());
-            if (result.Success)
+            try
             {
-                string total = result.Players.ToString();
-                return Ok(total);
+                var result = await _contractUOW.TotalPlayesOnLeague(leagueCode.ToUpper());
+                if (result.Success)
+                {
+                    string total = result.Players.ToString();
+                    return Ok(total);
+                }
+                else
+                {
+                    return StatusCode(504, result.Message);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return StatusCode(504, result.Message);
+
+                return StatusCode(500);
             }
+            
         }
     }
 }
