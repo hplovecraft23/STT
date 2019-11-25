@@ -11,11 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STT.WebApi.APIClient", "STT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STT.WebApi.Data", "STT.WebApi.Data\STT.WebApi.Data.csproj", "{3F5EA203-102B-4008-A5D6-4581B8581F58}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{E42C4697-2B22-4AA4-A86E-863F61EB5AFD}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\Scripts\init.sql = ..\..\..\Scripts\init.sql
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STT.WebApi.Tests", "STT.WebApi.Tests\STT.WebApi.Tests.csproj", "{259235F8-1F40-4755-BED3-18FE8D5B1CA3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SST.WebApi.API", "SST.WebApi.API\SST.WebApi.API.csproj", "{F66BAF7F-09CD-4AA3-87B8-2E71981B00BB}"

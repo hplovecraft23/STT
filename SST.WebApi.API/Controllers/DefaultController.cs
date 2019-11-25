@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using STT.WebApi.Contract.Interfaces;
 
 namespace SST.WebApi.API.Controllers
@@ -26,7 +27,7 @@ namespace SST.WebApi.API.Controllers
         [ProducesResponseType(typeof(void), 504)]
         public async Task<IActionResult> ImportLeague(string leagueCode)
         {
-            string message;
+            ImportAnswer  answer;
             try
             {
                 var result = await _contractUOW.ImportLeague(leagueCode.ToUpper());
@@ -35,23 +36,23 @@ namespace SST.WebApi.API.Controllers
                 {
 
                     case STT.WebApi.Contract.Models.Import_LeagueResults.SuccessfullyImported:
-                        message = "Successfully imported";
-                        return StatusCode(201, message);
+                        answer = new ImportAnswer("Successfully imported");
+                        return StatusCode(201, JsonConvert.SerializeObject(answer));
                     case STT.WebApi.Contract.Models.Import_LeagueResults.AlreadyImported:
-                        message = "League already imported";
-                        return StatusCode(409, message);
+                        answer = new ImportAnswer("League already imported");
+                        return StatusCode(409, JsonConvert.SerializeObject(answer));
                     case STT.WebApi.Contract.Models.Import_LeagueResults.NotFound:
-                        message = "Not found";
-                        return StatusCode(404, message);
+                        answer = new ImportAnswer("Not found");
+                        return StatusCode(404, JsonConvert.SerializeObject(answer));
                     case STT.WebApi.Contract.Models.Import_LeagueResults.ServerError:
-                        message = "Server Error";
-                        return StatusCode(504, message);
+                        answer = new ImportAnswer("Server Error");
+                        return StatusCode(504, JsonConvert.SerializeObject(answer));
                     default:
-                        message = "Server Error";
-                        return StatusCode(504, message);
+                        answer = new ImportAnswer("Server Error");
+                        return StatusCode(504, JsonConvert.SerializeObject(answer));
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 _contractUOW.CallRoolback();
                 return StatusCode(500);
@@ -67,23 +68,50 @@ namespace SST.WebApi.API.Controllers
         {
             try
             {
+                AmmountAnswer answer;
                 var result = await _contractUOW.TotalPlayesOnLeague(leagueCode.ToUpper());
                 if (result.Success)
                 {
-                    string total = result.Players.ToString();
-                    return Ok(total);
+                    answer = new AmmountAnswer(result.Players.ToString());
+                    return Ok(answer);
                 }
                 else
                 {
                     return StatusCode(504, result.Message);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 return StatusCode(500);
             }
             
+        }
+    }
+    public class ImportAnswer
+    {
+        public string message { get {
+                return _message;
+            } }
+        private string _message { get; set; }
+        public ImportAnswer(string message)
+        {
+            _message = message;
+        }
+    }
+    public class AmmountAnswer
+    {
+        public string total
+        {
+            get
+            {
+                return _total;
+            }
+        }
+        private string _total { get; set; }
+        public AmmountAnswer(string total)
+        {
+            _total = total;
         }
     }
 }

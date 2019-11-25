@@ -11,7 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema STT
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `STT` DEFAULT CHARACTER SET utf8 ;
+ALTER SCHEMA `STT`  DEFAULT CHARACTER SET utf8mb4  DEFAULT COLLATE utf8mb4_general_ci ;
 USE `STT` ;
 
 -- -----------------------------------------------------
@@ -19,13 +19,13 @@ USE `STT` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `STT`.`Competitions` (
   `id` INT NOT NULL DEFAULT 1,
-  `name` VARCHAR(60) NULL,
+  `name` VARCHAR(90) NULL,
   `code` VARCHAR(45) NULL,
   `areaName` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `idCompetition_UNIQUE` (`id` ASC))
-ENGINE = InnoDB;
-
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
 
 -- -----------------------------------------------------
 -- Table `STT`.`Teams`
@@ -39,8 +39,8 @@ CREATE TABLE IF NOT EXISTS `STT`.`Teams` (
   `email` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
-ENGINE = InnoDB;
-
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
 
 -- -----------------------------------------------------
 -- Table `STT`.`Players`
@@ -53,8 +53,8 @@ CREATE TABLE IF NOT EXISTS `STT`.`Players` (
   `nationality` VARCHAR(60) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
-ENGINE = InnoDB;
-
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
 
 -- -----------------------------------------------------
 -- Table `STT`.`Competition_Teams`
@@ -65,8 +65,8 @@ CREATE TABLE IF NOT EXISTS `STT`.`Competition_Teams` (
   `Team_id` INT NULL,
   PRIMARY KEY (`idCompetition_Teams`),
   UNIQUE INDEX `idCompetition_Teams_UNIQUE` (`idCompetition_Teams` ASC))
-ENGINE = InnoDB;
-
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
 
 -- -----------------------------------------------------
 -- Table `STT`.`TeamPlayers`
@@ -77,8 +77,8 @@ CREATE TABLE IF NOT EXISTS `STT`.`TeamPlayers` (
   `Player_id` INT NULL,
   PRIMARY KEY (`idTeamPlayers`),
   UNIQUE INDEX `idTeamPlayers_UNIQUE` (`idTeamPlayers` ASC))
-ENGINE = InnoDB;
-
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

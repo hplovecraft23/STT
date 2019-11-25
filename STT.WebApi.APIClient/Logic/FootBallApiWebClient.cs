@@ -114,6 +114,10 @@ namespace STT.WebApi.APIClient.Logic
                     };
                     return teamCompetitions;
                 }
+                else if (result.StatusCode == System.Net.HttpStatusCode.Forbidden)
+                {
+                    return new TeamCompetitionsDTO() { Message = result.Content.ToString(), Success = false, Forbidden =  true  };
+                }
                 else
                 {
                     return new TeamCompetitionsDTO() { Message = result.Content.ToString(), Success = false };

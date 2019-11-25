@@ -7,5 +7,6 @@ namespace STT.WebApi.APIClient.Models
         public Headers Headers { get; set; }
         public bool Success { get; set; }
         public string Message { get; set; }
+        
     }
 }

@@ -63,6 +63,17 @@ namespace STT.WebApi.Contract.Logic
                         Data.Models.Competition Comp = Mapper.Map<Data.Models.Competition>(competition);
                         _FootballUOW.Competitions.Add(Comp);
                         var teams = await _API_FootbalRepository.TeamCompetitionsDTO(Comp.id);
+                        if (teams.Forbidden)
+                        {
+                            if (_FootballUOW.dBContext.Database.CurrentTransaction != null)
+                            {
+                                _FootballUOW.dBContext.Database.RollbackTransaction();
+                            }
+
+                            result.Message = "This leage is out of your tier.";
+                            result.Status = Import_LeagueResults.ServerError;
+                            return result;
+                        }
                         foreach (TeamsCompetitionTeamDTO item in teams.CompetitionTeamList.teams)
                         {
                             int id = item.id;
@@ -82,31 +93,35 @@ namespace STT.WebApi.Contract.Logic
 
                             }
                             TeamDTO teamDTO = await _API_FootbalRepository.TeamDTO(item.id);
-                            foreach (Player player in teamDTO.Team.squad)
+                            if (!(teamDTO.Team == null || teamDTO.Team.squad == null))
                             {
-                                if (player.position == null)
+                                foreach (Player player in teamDTO.Team.squad)
                                 {
-                                    player.position = "Coach";
-                                }
-                                if (player.dateOfBirth == null)
-                                {
-                                    player.dateOfBirth = new DateTime(1999, 01, 01);
-                                }
-                                if (_FootballUOW.Players.GetById(player.id) != null)
-                                {
-                                    if (!_FootballUOW.TeamPlayers.List().Where(x => x.Player_id == player.id && x.Team_id == item.id).Any())
+                                    if (player.position == null)
                                     {
-                                        _FootballUOW.TeamPlayers.Add(new Data.Models.TeamPlayers { Player_id = player.id, Team_id = item.id });
+                                        player.position = "Coach";
+                                    }
+                                    if (player.dateOfBirth == null)
+                                    {
+                                        player.dateOfBirth = new DateTime(1999, 01, 01);
+                                    }
+                                    if (_FootballUOW.Players.GetById(player.id) != null)
+                                    {
+                                        if (!_FootballUOW.TeamPlayers.List().Where(x => x.Player_id == player.id && x.Team_id == item.id).Any())
+                                        {
+                                            _FootballUOW.TeamPlayers.Add(new Data.Models.TeamPlayers { Player_id = player.id, Team_id = item.id });
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Mapper = AutomapperConfigurations.PlayerAPIToLocal.CreateMapper();
+                                        Data.Models.Player DBPlayer = Mapper.Map<Player, Data.Models.Player>(player);
+                                        _FootballUOW.Players.Add(DBPlayer);
+                                        _FootballUOW.TeamPlayers.Add(new Data.Models.TeamPlayers() { Player_id = DBPlayer.id, Team_id = item.id });
                                     }
                                 }
-                                else
-                                {
-                                    Mapper = AutomapperConfigurations.PlayerAPIToLocal.CreateMapper();
-                                    Data.Models.Player DBPlayer = Mapper.Map<Player, Data.Models.Player>(player);
-                                    _FootballUOW.Players.Add(DBPlayer);
-                                    _FootballUOW.TeamPlayers.Add(new Data.Models.TeamPlayers() { Player_id = DBPlayer.id, Team_id = item.id });
-                                }
                             }
+                            
                         }
                             
                         await _FootballUOW.dBContext.SaveChangesAsync();
@@ -128,7 +143,7 @@ namespace STT.WebApi.Contract.Logic
                     return result;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 if (_FootballUOW.dBContext.Database.CurrentTransaction != null)
                 {
