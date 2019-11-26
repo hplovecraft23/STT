@@ -15,7 +15,7 @@ services:
     
     ports:
       - "3300:3306"
-  sst.webapi.api:
+  api:
     depends_on:
       - "database"
     image: ${DOCKER_REGISTRY-}sstwebapiapi
