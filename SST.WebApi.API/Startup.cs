@@ -56,6 +56,11 @@ namespace SST.WebApi.API
                     DBContextOptionsBuilder.GetOptions(Configuration["MySqlConn"])
                     )))
                 );
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowMyOrigin",
+                builder => builder.WithOrigins("*"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +73,8 @@ namespace SST.WebApi.API
 
             app.UseSwagger();
 
+            app.UseCors("AllowMyOrigin");
+
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", name: "Santex Football API");
@@ -79,7 +86,6 @@ namespace SST.WebApi.API
 
             app.UseAuthorization();
 
-            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
