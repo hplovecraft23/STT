@@ -1,0 +1,10 @@
+<div class="mat-app-background" style="display: flex; flex-direction: column;">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span style="flex: 1 1 auto;"> Footbal API </span>
+        <a  mat-raised-button [routerLink]="'/'" style="margin-right: 5px;">Home</a>
+        <a  mat-raised-button [routerLink]="'/about'">About</a>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+</div>

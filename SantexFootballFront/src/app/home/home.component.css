@@ -1,0 +1,22 @@
+.mat-card {
+    margin-top: 25px;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-bottom: 25px;
+}
+.mat-app-background{
+    height: 100vw;
+}
+.tabcontainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    margin-top: 20px;
+}
+.form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+}
