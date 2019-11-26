@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBModel", "DBModel", "{7957
 		..\..\..\Scripts\Database.mwb = ..\..\..\Scripts\Database.mwb
 	EndProjectSection
 EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "SantexFootballFront", "SantexFootballFront\SantexFootballFront.njsproj", "{394DE370-8A2F-4300-B83F-49EFF45547CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{69F509F1-C634-4F3F-A8DE-8A76C6B795BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69F509F1-C634-4F3F-A8DE-8A76C6B795BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69F509F1-C634-4F3F-A8DE-8A76C6B795BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{394DE370-8A2F-4300-B83F-49EFF45547CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{394DE370-8A2F-4300-B83F-49EFF45547CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{394DE370-8A2F-4300-B83F-49EFF45547CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{394DE370-8A2F-4300-B83F-49EFF45547CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
