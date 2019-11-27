@@ -1,97 +1,102 @@
-<mat-card>
-<mat-card-title>
-    <h5>Import leagues</h5>
-</mat-card-title>
-<mat-card-subtitle>
-    Here you can write an interesting explaination about what this thing does :)
-</mat-card-subtitle>
-<mat-card-content>
-    <mat-tab-group mat-align-tabs="center">
-    <mat-tab  label="From code">
-        <div class="tabcontainer">
-            <mat-label>
-                Write a league code, please note that not all of them are available by default on the free tier of the api.
-            </mat-label>
-                
-                <mat-form-field >
-                <div class="form">
-                    <mat-label>Select a league</mat-label>
-                    <input matInput placeholder="Code">  
-                </div>
-                
-                
-                </mat-form-field>
-                <button mat-raised-button color='primary'>
-                    Import
-                </button>   
-            </div>
-    </mat-tab>
-    <mat-tab  label="From list"> 
-        <div class="tabcontainer">
-        <mat-label>
-            Pick a league from this list, please note that not all of them are available by default on the free tier of the api.
-        </mat-label>
-            
-            <mat-form-field>
-            <div class="form">
-                <mat-label>Select a league</mat-label>
-                <mat-select >
-                    <mat-option>--</mat-option>
-                    <mat-option *ngFor="let c of competition?.Competitions.competitions" [value]="c.code">{{c.name}}</mat-option>
-                </mat-select>
-                
-            </div>
-            
-            </mat-form-field>
-            <button mat-raised-button color='primary'>
-                Import
-            </button>
-        </div>
-    </mat-tab>
-    </mat-tab-group>
-</mat-card-content>
-</mat-card>
-<mat-card>
-<mat-card-title>
-    <h5>Total players on league</h5>
+    <mat-card *ngIf="spinner" class="spinnerbox">
+        <mat-card-content>
+          <mat-spinner></mat-spinner>
+        </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="gotdata">
+    <mat-card-title>
+        <h5>Import leagues</h5>
+    </mat-card-title>
     <mat-card-subtitle>
         Here you can write an interesting explaination about what this thing does :)
     </mat-card-subtitle>
     <mat-card-content>
-        <div class="tabcontainer">
+        <mat-tab-group mat-align-tabs="center">
+        <mat-tab  label="From code">
+            <div class="tabcontainer">
+                <mat-label>
+                    Write a league code, please note that not all of them are available by default on the free tier of the api.
+                </mat-label>
+                    
+                    <mat-form-field >
+                    <div class="form">
+                        <mat-label>Select a league</mat-label>
+                        <input matInput placeholder="Code">  
+                    </div>
+                    
+                    
+                    </mat-form-field>
+                    <button mat-raised-button color='primary'>
+                        Import
+                    </button>   
+                </div>
+        </mat-tab>
+        <mat-tab  label="From list"> 
+            <div class="tabcontainer">
             <mat-label>
-                Select one of the leagues you imported to know the total ammount of players.
+                Pick a league from this list, please note that not all of them are available by default on the free tier of the api.
             </mat-label>
-            <mat-form-field >
+                
+                <mat-form-field>
                 <div class="form">
                     <mat-label>Select a league</mat-label>
                     <mat-select >
-                    <mat-option>--</mat-option>
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let c of this.competitions" [value]="c.code">{{c.name}}</mat-option>
                     </mat-select>
+                    
                 </div>
-            </mat-form-field>
-        </div>
+                
+                </mat-form-field>
+                <button mat-raised-button color='primary'>
+                    Import
+                </button>
+            </div>
+        </mat-tab>
+        </mat-tab-group>
     </mat-card-content>
-</mat-card-title>
-</mat-card>
-<mat-card>
-<mat-card-title>
-    <h5>Changue API Key</h5>
-    <mat-card-subtitle>
-    Here you can write an interesting explaination about what this thing does :)
-    </mat-card-subtitle>
-    <mat-card-content>
-        <div class="tabcontainer">
-            <mat-label>
-                Input a new api key.
-            </mat-label>
-            <mat-form-field >
-                <div class="form">
-                    <mat-label>Your new api key</mat-label>
-                    <input matInput placeholder="Key">  
-                </div>
-            </mat-form-field>
-        </div>
-    </mat-card-content>
-</mat-card-title>
-</mat-card>
+    </mat-card>
+    <mat-card *ngIf="gotdata">
+    <mat-card-title>
+        <h5>Total players on league</h5>
+        <mat-card-subtitle>
+            Here you can write an interesting explaination about what this thing does :)
+        </mat-card-subtitle>
+        <mat-card-content>
+            <div class="tabcontainer">
+                <mat-label>
+                    Select one of the leagues you imported to know the total ammount of players.
+                </mat-label>
+                <mat-form-field >
+                    <div class="form">
+                        <mat-label>Select a league</mat-label>
+                        <mat-select >
+                        <mat-option>--</mat-option>
+                        </mat-select>
+                    </div>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+    </mat-card-title>
+    </mat-card>
+    <mat-card *ngIf="gotdata">
+    <mat-card-title>
+        <h5>Changue API Key</h5>
+        <mat-card-subtitle>
+        Here you can write an interesting explaination about what this thing does :)
+        </mat-card-subtitle>
+        <mat-card-content>
+            <div class="tabcontainer">
+                <mat-label>
+                    Input a new api key.
+                </mat-label>
+                <mat-form-field >
+                    <div class="form">
+                        <mat-label>Your new api key</mat-label>
+                        <input matInput placeholder="Key">  
+                    </div>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+    </mat-card-title>
+    </mat-card>

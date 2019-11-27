@@ -19,9 +19,7 @@ export class ApiClientService {
 
   public getLeagues(): Observable<any> {
     const url = `${this.apiurl}${this.list}`;
-    return this.http.get(url).pipe(
-      catchError(_ => this.snack.Snack('Error getting competition list'))
-    );
+    return this.http.get(url);
   }
   constructor(private http: HttpClient, private snack: SnackService) { }
 }

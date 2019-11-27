@@ -16,6 +16,8 @@ import { AboutComponent } from './about/about.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AboutComponent
   ],
   imports: [
+    FormsModule,
+    MatProgressSpinnerModule,
     HttpClientModule,
     BrowserModule,
     MatInputModule,
