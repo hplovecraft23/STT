@@ -7,7 +7,7 @@ namespace STT.WebApi.Data.Models
     {
         [Key]
         public int id { get; set; }
-        public string  position { get; set; }
+        public string position { get; set; }
         public DateTime dateOfBirth { get; set; }
         public string countryOfBirth { get; set; }
         public string nationality { get; set; }

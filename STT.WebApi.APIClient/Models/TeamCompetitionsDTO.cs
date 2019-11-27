@@ -1,5 +1,4 @@
-﻿using System;
-namespace STT.WebApi.APIClient.Models
+﻿namespace STT.WebApi.APIClient.Models
 {
     public class TeamCompetitionsDTO
     {

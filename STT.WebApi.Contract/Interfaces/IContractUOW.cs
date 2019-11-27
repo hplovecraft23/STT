@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-using STT.WebApi.APIClient.Models;
+﻿using STT.WebApi.APIClient.Models;
 using STT.WebApi.Contract.Models;
+using System.Threading.Tasks;
 
 namespace STT.WebApi.Contract.Interfaces
 {
@@ -13,7 +12,7 @@ namespace STT.WebApi.Contract.Interfaces
         public Task<ImportLeagueResponse> ImportLeague(string code);
         public Task<TotalPlayesOnLeagueResponse> TotalPlayesOnLeague(string code);
         public Task<CompetitionListDTO> GetLeagues();
-        
+
         public CompetitionListDTO CompetitionListCache { get; set; }
         public void ChangeAPIKey(string newkey);
         public void CallRoolback();

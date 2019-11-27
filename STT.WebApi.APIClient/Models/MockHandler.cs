@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,7 +18,11 @@ namespace STT.WebApi.APIClient.Models
             }
             else if (request.RequestUri.ToString() == "test.com/v2/competitions/123/teams")
             {
-                return null;
+                return Task.FromResult(new HttpResponseMessage { Content = new StringContent(JsonConvert.SerializeObject(TeamCompetitionsJSONMock)) });
+            }
+            else if (request.RequestUri.ToString() == "test.com/v2/teams/123")
+            {
+                return Task.FromResult(new HttpResponseMessage { Content = new StringContent(JsonConvert.SerializeObject(GETTeamJSON)) });
             }
             return null;
         }

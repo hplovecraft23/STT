@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using STT.WebApi.Contract.Interfaces;
+using System;
+using System.Threading.Tasks;
 
 namespace SST.WebApi.API.Controllers
 {
@@ -12,7 +9,7 @@ namespace SST.WebApi.API.Controllers
     [Route("[controller]")]
     public class ServicesController : ControllerBase
     {
-        
+
         IContractUOW _contractUOW;
         public ServicesController(IContractUOW contractUOW)
         {

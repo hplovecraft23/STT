@@ -1,10 +1,9 @@
-﻿using System;
+﻿using STT.WebApi.Data.Interfaces;
+using STT.WebApi.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using STT.WebApi.Data.Interfaces;
-using STT.WebApi.Data.Models;
 
 namespace STT.WebApi.Data.Logic
 {
@@ -19,20 +18,20 @@ namespace STT.WebApi.Data.Logic
 
         public void Add(Player entity)
         {
-             _dbcontext.AddAsync(entity);
-             
+            _dbcontext.AddAsync(entity);
+
         }
 
         public void Delete(Player entity)
         {
             _dbcontext.Remove(entity);
-           
+
         }
 
         public void Edit(Player entity)
         {
             _dbcontext.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-           
+
         }
 
         public Player GetById(int id)

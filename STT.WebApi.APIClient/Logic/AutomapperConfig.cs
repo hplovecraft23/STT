@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
+﻿using AutoMapper;
 using STT.WebApi.APIClient.Models;
 
 namespace STT.WebApi.APIClient.Logic
@@ -23,7 +20,7 @@ namespace STT.WebApi.APIClient.Logic
                 c.CreateMap<TeamCompetitionsJSON, CompetitionTeamList>();
                 c.CreateMap<CompetitionJSON, Competition>();
                 c.CreateMap<TeamJSON, TeamsCompetitionTeamDTO>().ForMember(x => x.areaName, x => x.MapFrom(x => x.area.name));
-                
+
             });
             GetTeamConfig = new MapperConfiguration(c =>
             {

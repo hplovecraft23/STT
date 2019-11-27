@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
+﻿using AutoMapper;
 using STT.WebApi.APIClient.Models;
 
 namespace STT.WebApi.Contract.Models
@@ -25,7 +22,7 @@ namespace STT.WebApi.Contract.Models
             {
                 c.CreateMap<Player, Data.Models.Player>();
             });
-            
+
             CompetitionAPItoLocal.AssertConfigurationIsValid();
             TeamAPItoLocal.AssertConfigurationIsValid();
             PlayerAPIToLocal.AssertConfigurationIsValid();

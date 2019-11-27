@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using NUnit.Framework;
 using STT.WebApi.Data.Logic;
 using STT.WebApi.Data.Models;
-using Moq;
 
 namespace STT.WebApi.Tests
 {

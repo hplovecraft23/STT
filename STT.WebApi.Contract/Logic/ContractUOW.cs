@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using STT.WebApi.APIClient.Interfaces;
+using STT.WebApi.APIClient.Logic;
 using STT.WebApi.APIClient.Models;
 using STT.WebApi.Contract.Interfaces;
 using STT.WebApi.Contract.Models;
 using STT.WebApi.Data.Interfaces;
-using STT.WebApi.APIClient.Logic;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore.Storage;
+using System.Threading.Tasks;
 
 namespace STT.WebApi.Contract.Logic
 {
@@ -38,8 +36,8 @@ namespace STT.WebApi.Contract.Logic
 
 
         public async Task<ImportLeagueResponse> ImportLeague(string code)
-        {  
-            
+        {
+
             var result = new ImportLeagueResponse();
             try
             {
@@ -121,17 +119,17 @@ namespace STT.WebApi.Contract.Logic
                                     }
                                 }
                             }
-                            
+
                         }
-                            
+
                         await _FootballUOW.dBContext.SaveChangesAsync();
                         await _FootballUOW.dBContext.Database.CurrentTransaction.CommitAsync();
                         result.Message = "Successfully imported";
                         result.Status = Import_LeagueResults.SuccessfullyImported;
                         return result;
-                        }
                     }
-                
+                }
+
                 else
                 {
                     if (_FootballUOW.dBContext.Database.CurrentTransaction != null)
@@ -153,7 +151,7 @@ namespace STT.WebApi.Contract.Logic
                 result.Message = "Server Error";
                 result.Status = Import_LeagueResults.ServerError;
                 return result;
-            }  
+            }
         }
 
         public async Task<TotalPlayesOnLeagueResponse> TotalPlayesOnLeague(string code)

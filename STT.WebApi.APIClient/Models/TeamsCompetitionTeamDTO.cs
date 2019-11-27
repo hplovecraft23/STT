@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace STT.WebApi.APIClient.Models
+﻿namespace STT.WebApi.APIClient.Models
 {
     public class TeamsCompetitionTeamDTO
     {

@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using STT.WebApi.APIClient.Models;
+﻿using STT.WebApi.APIClient.Models;
+using System.Threading.Tasks;
 
 namespace STT.WebApi.APIClient.Interfaces
 {

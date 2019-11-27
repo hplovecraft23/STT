@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using STT.WebApi.Contract.Interfaces;
+using System;
+using System.Threading.Tasks;
 
 namespace SST.WebApi.API.Controllers
 {
@@ -27,11 +25,11 @@ namespace SST.WebApi.API.Controllers
         [ProducesResponseType(typeof(void), 504)]
         public async Task<IActionResult> ImportLeague(string leagueCode)
         {
-            ImportAnswer  answer;
+            ImportAnswer answer;
             try
             {
                 var result = await _contractUOW.ImportLeague(leagueCode.ToUpper());
-                
+
                 switch (result.Status)
                 {
 
@@ -57,7 +55,7 @@ namespace SST.WebApi.API.Controllers
                 _contractUOW.CallRoolback();
                 return StatusCode(500);
             }
-            
+
         }
 
         [HttpGet]
@@ -85,14 +83,18 @@ namespace SST.WebApi.API.Controllers
 
                 return StatusCode(500);
             }
-            
+
         }
     }
     public class ImportAnswer
     {
-        public string message { get {
+        public string message
+        {
+            get
+            {
                 return _message;
-            } }
+            }
+        }
         private string _message { get; set; }
         public ImportAnswer(string message)
         {

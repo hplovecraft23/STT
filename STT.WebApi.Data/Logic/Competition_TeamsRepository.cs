@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using STT.WebApi.Data.Interfaces;
+using STT.WebApi.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
-using STT.WebApi.Data.Interfaces;
-using STT.WebApi.Data.Models;
 
 namespace STT.WebApi.Data.Logic
 {
@@ -20,20 +19,20 @@ namespace STT.WebApi.Data.Logic
 
         public void Add(Competition_Teams entity)
         {
-             _dbcontext.AddAsync(entity);
-            
+            _dbcontext.AddAsync(entity);
+
         }
 
         public void Delete(Competition_Teams entity)
         {
             _dbcontext.Remove(entity);
-          
+
         }
 
         public void Edit(Competition_Teams entity)
         {
             _dbcontext.Entry(entity).State = EntityState.Modified;
-           
+
         }
 
         public Competition_Teams GetById(int id)

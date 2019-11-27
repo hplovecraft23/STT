@@ -1,12 +1,12 @@
-﻿using System;
+﻿using AutoMapper;
+using Newtonsoft.Json;
+using STT.WebApi.APIClient.Interfaces;
+using STT.WebApi.APIClient.Models;
+using System;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using Newtonsoft.Json;
-using STT.WebApi.APIClient.Interfaces;
-using STT.WebApi.APIClient.Models;
 
 namespace STT.WebApi.APIClient.Logic
 {
@@ -42,7 +42,7 @@ namespace STT.WebApi.APIClient.Logic
 
         public async Task<CompetitionListDTO> CompetitionListDTO()
         {
-            using(_httpClient = GetHttpClient())
+            using (_httpClient = GetHttpClient())
             {
                 if (remainingCalls < 1)
                 {
@@ -116,7 +116,7 @@ namespace STT.WebApi.APIClient.Logic
                 }
                 else if (result.StatusCode == System.Net.HttpStatusCode.Forbidden)
                 {
-                    return new TeamCompetitionsDTO() { Message = result.Content.ToString(), Success = false, Forbidden =  true  };
+                    return new TeamCompetitionsDTO() { Message = result.Content.ToString(), Success = false, Forbidden = true };
                 }
                 else
                 {
@@ -124,7 +124,7 @@ namespace STT.WebApi.APIClient.Logic
                 }
             }
         }
-        
+
         public async Task<TeamDTO> TeamDTO(int TeamID)
         {
             using (_httpClient = GetHttpClient())

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using STT.WebApi.Data.Interfaces;
+﻿using STT.WebApi.Data.Interfaces;
+using System;
 
 namespace STT.WebApi.Data.Logic
 {
@@ -13,8 +11,10 @@ namespace STT.WebApi.Data.Logic
             _dbcontext = dBContext;
         }
         private CompetitionRepository _Competitions { get; set; }
-        public CompetitionRepository Competitions {
-            get {
+        public CompetitionRepository Competitions
+        {
+            get
+            {
                 if (_Competitions == null)
                 {
                     _Competitions = new CompetitionRepository(_dbcontext);
@@ -23,7 +23,10 @@ namespace STT.WebApi.Data.Logic
             }
         }
         private TeamRepository _teams { get; set; }
-        public TeamRepository Teams { get {
+        public TeamRepository Teams
+        {
+            get
+            {
                 if (_teams == null)
                 {
                     _teams = new TeamRepository(_dbcontext);
@@ -32,7 +35,10 @@ namespace STT.WebApi.Data.Logic
             }
         }
         private PlayerRepository _players { get; set; }
-        public PlayerRepository Players { get {
+        public PlayerRepository Players
+        {
+            get
+            {
                 if (_players == null)
                 {
                     _players = new PlayerRepository(_dbcontext);
@@ -41,27 +47,37 @@ namespace STT.WebApi.Data.Logic
             }
         }
         private Competition_TeamsRepository _competition_Teams;
-        public Competition_TeamsRepository Competition_Teams { get {
+        public Competition_TeamsRepository Competition_Teams
+        {
+            get
+            {
                 if (_competition_Teams == null)
                 {
                     _competition_Teams = new Competition_TeamsRepository(_dbcontext);
                 }
                 return _competition_Teams;
-            } 
+            }
         }
         private TeamPlayersRepository _teamPlayers { get; set; }
-        public TeamPlayersRepository TeamPlayers { get {
+        public TeamPlayersRepository TeamPlayers
+        {
+            get
+            {
                 if (_teamPlayers == null)
                 {
                     _teamPlayers = new TeamPlayersRepository(_dbcontext);
                 }
                 return _teamPlayers;
-            } 
+            }
         }
 
-        public FootballDBContext dBContext { get {
+        public FootballDBContext dBContext
+        {
+            get
+            {
                 return _dbcontext;
-            } }
+            }
+        }
 
         public void SaveChanges()
         {

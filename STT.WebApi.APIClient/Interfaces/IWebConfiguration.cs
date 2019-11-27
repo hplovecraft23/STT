@@ -1,5 +1,4 @@
-﻿using System;
-namespace STT.WebApi.APIClient.Interfaces
+﻿namespace STT.WebApi.APIClient.Interfaces
 {
     public interface IWebConfiguration
     {
